@@ -20,15 +20,15 @@ public class MapManager : MonoBehaviour
         for (int i = 0; i < Elements.Length; i++)
         {
             Transform MiniTransform = Elements[i].MiniElement.transform;
+            Vector3 newPosition = Vector3.ClampMagnitude(Player.transform.InverseTransformPoint(Elements[i].transform.position) * Scale, MapRadius * Scale);
+            newPosition = new Vector3(newPosition.x, newPosition.z, newPosition.y); //Swaps Y and Z, to make it work in the UI
+            MiniTransform.localPosition = newPosition;
 
-            MiniTransform.position = Vector3.ClampMagnitude(Player.transform.InverseTransformPoint(Elements[i].transform.position) * Scale, MapRadius * Scale);
-
-            MiniTransform.position = new Vector3(MiniTransform.position.x, MiniTransform.position.z, MiniTransform.position.y);
-
-            if (MiniTransform.position.magnitude < MapRadius * Scale * 0.999f)
+            //Scales the icons if they are out of the map reach
+            if (MiniTransform.localPosition.magnitude < MapRadius * Scale * 0.999f)
                 MiniTransform.localScale = Vector3.one;
             else
-                MiniTransform.localScale = Vector3.one * 0.4f;
+                MiniTransform.localScale = Vector3.one * 0.6f;
         }
     }
 }
