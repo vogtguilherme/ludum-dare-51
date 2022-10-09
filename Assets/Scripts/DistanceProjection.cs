@@ -6,14 +6,10 @@ public class DistanceProjection : MonoBehaviour
 {
     [SerializeField] Transform Player;
     [SerializeField] Camera CameraRover;
-    [SerializeField] Transform Marker;
     [SerializeField] RectTransform Photo;
-    [SerializeField] float Distance;
-
-    void Start()
-    {
-        
-    }
+    //[SerializeField] Transform Marker;
+    //[SerializeField] float Distance;
+    [SerializeField] DistanceMarker[] Markers;
 
     void Update()
     {
@@ -22,17 +18,34 @@ public class DistanceProjection : MonoBehaviour
 
     public void ProjectDistances()
     {
-        RaycastHit hit;
-        Vector3 hitPosition = Player.position + (Player.forward * Distance) + (transform.up * 100);
-
-        if (Physics.Raycast(hitPosition, Vector3.down, out hit))
+        for (int i = 0; i < Markers.Length; i++)
         {
-            Vector3 screenPosition = CameraRover.WorldToScreenPoint(hit.point);
-            Vector3 screenPositionScaled = screenPosition * Photo.rect.height / CameraRover.pixelHeight;
-            Vector3 screenPositionOffseted = screenPositionScaled - new Vector3(Photo.rect.width / 2, Photo.rect.height / 2, 0);
-            Marker.localPosition = screenPositionOffseted;
-            
-            Debug.Log(hit.transform.name + ", " + hitPosition + ", " + screenPosition + ", " + screenPositionScaled + ", " + screenPositionOffseted);
-        }
+            RaycastHit hit;
+            Vector3 hitPosition = Player.position + (Player.forward * Markers[i].Distance) + (Vector3.up * 100);
+
+            if (Physics.Raycast(hitPosition, Vector3.down, out hit))
+            {
+                //Puts the markers on the correct position.
+                Vector3 screenPosition = CameraRover.WorldToScreenPoint(hit.point);
+                Vector3 screenPositionScaled = screenPosition * Photo.rect.height / CameraRover.pixelHeight;
+                Vector3 screenPositionOffseted = screenPositionScaled - new Vector3(Photo.rect.width / 2, Photo.rect.height / 2, 0);
+                Markers[i].MarkerTransform.localPosition = screenPositionOffseted;
+
+                //Deactivates the markers if they are ocluded by something.
+                RaycastHit hitCheck;
+                Vector3 rayDirection = Vector3.Normalize(hit.point - CameraRover.transform.position);
+                float distanceFromHit = Vector3.Magnitude(hit.point - CameraRover.transform.position);
+                bool IsObstructed = Physics.Raycast(CameraRover.transform.position, rayDirection, distanceFromHit - 0.05f);
+                Markers[i].MarkerTransform.gameObject.SetActive(!IsObstructed);            
+            }
+        }      
     }
+}
+
+[System.Serializable]
+public class DistanceMarker
+{
+    public Transform MarkerTransform;
+    public float Distance;
+
 }
