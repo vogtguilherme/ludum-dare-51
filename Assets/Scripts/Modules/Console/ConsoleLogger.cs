@@ -31,9 +31,35 @@ public class ConsoleLogger : MonoBehaviour
         
         m_ConsoleOutputList.Add(message);
 
-        m_ConsoleText.text += message + "\n";
+        string richTextTag = LogContextColor(logType);
+        m_ConsoleText.text += richTextTag + message + "\n";
         
         OnMessageLogged?.Invoke(logType);
+    }
+
+    private string LogContextColor(LogType type)
+    {
+        string _colorTag = string.Empty;
+        
+        switch (type)
+        {
+            case LogType.Message:
+                _colorTag = "<color=#004B00>";
+                break;
+            case LogType.Warning:
+                _colorTag = "<color=#004B00>";
+                break;
+            case LogType.Error:
+                _colorTag = "<color=#CF2217>";
+                break;
+            case LogType.Info:
+                _colorTag = "<color=#004B00>";
+                break;
+            default:
+                break;
+        }
+
+        return _colorTag;
     }
 }
 

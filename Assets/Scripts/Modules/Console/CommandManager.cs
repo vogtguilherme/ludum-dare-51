@@ -9,7 +9,9 @@ public class CommandManager : MonoBehaviour
     [SerializeField]
     private CommandParser m_CommandParser = null;
     [SerializeField]
-    private List<string> m_Commands = new List<string>();
+    private List<string> m_DefaultCommandList = new List<string>();
+
+    private CommandQueue m_CurrentQueue;
 
     private CommandValidator m_Validator = null;
 
@@ -21,6 +23,7 @@ public class CommandManager : MonoBehaviour
     private void Awake()
     {
         m_ConsoleLogger = GetComponent<ConsoleLogger>();
+        m_CurrentQueue = new CommandQueue(this);
     }
 
     private void Start()
@@ -30,7 +33,7 @@ public class CommandManager : MonoBehaviour
 
     private void Initialize()
     {
-        m_Validator = new CommandValidator(m_Commands);
+        m_Validator = new CommandValidator(m_DefaultCommandList);
         m_CommandParser.OnCommandParsed += OnCommandParsed;
     }
 
@@ -54,14 +57,20 @@ public class CommandManager : MonoBehaviour
                     }
                 }
 
-                m_ConsoleLogger.LogMessage(_command, LogType.Message);
+                m_CurrentQueue.AddCommand(_command, HandleCommandAdded);
             }
             else
             {
-                Debug.Log("Command not found");
+                Debug.Log("command not found");
                 string commandNotFound = "command not found: " + command[0];
                 m_ConsoleLogger.LogMessage(commandNotFound, LogType.Error);
             }
         }
+    }
+
+    private void HandleCommandAdded(string command)
+    {
+        string message = "queued command: " + command;
+        m_ConsoleLogger.LogMessage(message, LogType.Info);
     }
 }
