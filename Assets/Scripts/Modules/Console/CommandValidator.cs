@@ -4,28 +4,64 @@ using UnityEngine;
 
 public class CommandValidator
 {
-    private List<string> _commands = new List<string>();
+    private List<Command> m_DefaultCommands = new List<Command>();
     
-    public CommandValidator(List<string> cmdList)
+    public CommandValidator(List<Command> cmdList)
     {
         for (int i = 0; i < cmdList.Count; i++)
         {
-            if (!_commands.Contains(cmdList[i]))
+            if (!m_DefaultCommands.Contains(cmdList[i]))
             {
-                _commands.Add(cmdList[i]);
+                m_DefaultCommands.Add(cmdList[i]);
             }            
         }
     }
 
-    public bool ValidateCommandAction(string commandAction)
+    public CommandValidation ValidateCommand(string[] command)
     {
-        if (_commands.Contains(commandAction))
+        CommandValidation actionValidation = ValidateCommandAction(command[0]);
+        return actionValidation;
+    }
+
+    private CommandValidation ValidateCommandAction(string commandKey)
+    {
+        bool _validation = false;
+        string _log = string.Empty;
+        Debug.Log(commandKey);
+
+        for (int i = 0; i < m_DefaultCommands.Count; i++)
         {
-            return true;
+            if (commandKey.Equals(m_DefaultCommands[i].key))
+            {
+               _validation = true;
+            }
         }
-        else
+        if (_validation == false)
         {
-            return false;
+            _log = "command not found: " + commandKey;
         }
+
+        CommandValidation validation = new CommandValidation(commandKey, _log, _validation);
+
+        return validation;
+    }
+}
+
+public struct CommandValidation
+{
+    public string command { get; }
+    public string validationLog { get; }
+    public bool validated { get; }
+
+    public CommandValidation(string command, string validationLog, bool validated)
+    {
+        this.command = command;
+        this.validationLog = validationLog;
+        this.validated = validated;
+    }
+
+    public void Show()
+    {
+        Debug.Log(command + " " + validationLog + " " + validated);
     }
 }
