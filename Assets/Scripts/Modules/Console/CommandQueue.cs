@@ -7,12 +7,12 @@ using UnityEngine.UI;
 public class CommandQueue
 {
     [SerializeField]
-    private List<string> m_Commands = new List<string>();
+    private List<Command> m_Commands = new List<Command>();
 
     private CommandManager m_Manager = null;
     private int m_QueueIndex = 0;
 
-    public List<string> Commands
+    public List<Command> Commands
     {
         get
         {
@@ -25,7 +25,7 @@ public class CommandQueue
         m_Manager = manager;
     }
 
-    public void AddCommand(string command, Action<string> OnCommandAdded = null)
+    public void AddCommand(Command command, Action<Command> OnCommandAdded = null)
     {
         m_Commands.Add(command);
         OnCommandAdded?.Invoke(command);

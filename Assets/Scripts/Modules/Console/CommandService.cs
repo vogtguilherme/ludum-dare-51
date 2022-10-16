@@ -4,47 +4,57 @@ using UnityEngine;
 
 public class CommandService : MonoBehaviour
 {
-    [SerializeField]private List<Command> m_DefaultCommands = new List<Command>();
+    private CommandManager m_Manager;
+    
+    [SerializeField]private List<CommandSO> m_DefaultCommands = new List<CommandSO>();
 
     private Dictionary<string, Command> m_CommandKeyValuePairs = new Dictionary<string, Command>();
 
     private CommandValidator m_Validator;
 
-    private void Setup()
+    public void Setup(CommandManager manager)
     {
+        m_Manager = manager;
+        
         if (m_DefaultCommands.Count > 0)
-        {
-            foreach (Command cmd in m_DefaultCommands)
+        {            
+            var _commandList = new List<Command>();
+            foreach (CommandSO cmd in m_DefaultCommands)
             {
-                m_CommandKeyValuePairs.Add(cmd.key, cmd);
+                cmd.CreateCommand(manager);                
+                m_CommandKeyValuePairs.Add(cmd.commandKey, cmd.commandObj);
+                _commandList.Add(cmd.commandObj);
             }
 
-            m_Validator = new CommandValidator(m_DefaultCommands);
+            m_Validator = new CommandValidator(_commandList);
         }
     }
 
     public CommandRequest RequestCommand(string[] commandEntry)
     {
-        CommandRequest request = new CommandRequest(commandEntry);
-        var validation = m_Validator.ValidateCommand(request.commandKeys);
+        CommandRequest _request = new CommandRequest(commandEntry);
+        var _validation = m_Validator.ValidateCommand(_request.commandKeys);
 
-        if (!validation.validated)
+        if (!_validation.validated)
         {
-            request.ExceptionHandler = validation.validationLog;
+            _request.ExceptionHandler = _validation.validationLog;
         }
         else
         {
             var _command = GetCommand(commandEntry);
-            request.SetCommand(_command);
+            _request.SetCommand(_command);
         }
 
-        return request;
+        return _request;
     }
 
     private Command GetCommand(string[] entry)
     {
-        Command command = null;
-        return command;
+        Command _command = null;
+
+        _command = m_CommandKeyValuePairs[entry[0]];
+
+        return _command;
     }
 }
 

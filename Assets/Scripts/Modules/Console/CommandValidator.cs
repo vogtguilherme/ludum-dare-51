@@ -19,8 +19,8 @@ public class CommandValidator
 
     public CommandValidation ValidateCommand(string[] command)
     {
-        CommandValidation actionValidation = ValidateCommandAction(command[0]);
-        return actionValidation;
+        CommandValidation _actionValidation = ValidateCommandAction(command[0]);
+        return _actionValidation;
     }
 
     private CommandValidation ValidateCommandAction(string commandKey)
