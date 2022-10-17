@@ -624,10 +624,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 086ac604c395c9549b5c083d48bde6b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LightSeconds: 3
-  RoverSpeed: 1
-  Distance: 40
+  LightSeconds: 1
   StopDistance: 0.8
+  MovingSpeed: 1
+  RotatingSpeed: 15
+  Distance: 40
+  Angle: 45
   HeightLayerMask:
     serializedVersion: 2
     m_Bits: 128
