@@ -4,13 +4,16 @@ using UnityEngine;
 
 public class DistanceProjection : MonoBehaviour
 {
+    Camera CameraRover;
     [SerializeField] Transform Player;
-    [SerializeField] Camera CameraRover;
     [SerializeField] RectTransform Photo;
-    //[SerializeField] Transform Marker;
-    //[SerializeField] float Distance;
     [SerializeField] DistanceMarker[] Markers;
 
+    void Start()
+    {
+        CameraRover = Camera.main;    
+    }
+    
     void Update()
     {
         ProjectDistances();
@@ -32,7 +35,6 @@ public class DistanceProjection : MonoBehaviour
                 Markers[i].MarkerTransform.localPosition = screenPositionOffseted;
 
                 //Deactivates the markers if they are ocluded by something.
-                RaycastHit hitCheck;
                 Vector3 rayDirection = Vector3.Normalize(hit.point - CameraRover.transform.position);
                 float distanceFromHit = Vector3.Magnitude(hit.point - CameraRover.transform.position);
                 bool IsObstructed = Physics.Raycast(CameraRover.transform.position, rayDirection, distanceFromHit - 0.05f);

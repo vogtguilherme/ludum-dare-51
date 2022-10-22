@@ -5,10 +5,11 @@ using UnityEngine;
 public class CameraManager : MonoBehaviour
 {
     [SerializeField] bool RealTime;
-    [SerializeField] Camera CameraRover;
+    Camera CameraRover;
 
     void Awake()
     {
+        CameraRover = Camera.main;
         if (!RealTime)
             CameraRover.enabled = false;
     }

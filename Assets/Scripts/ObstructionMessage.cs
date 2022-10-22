@@ -6,13 +6,17 @@ using System.Globalization;
 
 public class ObstructionMessage : MonoBehaviour
 {
-    [SerializeField] Camera CameraRover;
+    Camera CameraRover;
     [SerializeField] GameObject UIMessage;
     [SerializeField] TMP_Text TextObstruction;
     [SerializeField] TMP_Text TextDistance;
     [SerializeField] float CheckDistance;
     [SerializeField] LayerMask LayersToCheck;
 
+    void Start()
+    {
+        CameraRover = Camera.main;    
+    }
 
     void Update()
     {
@@ -32,7 +36,7 @@ public class ObstructionMessage : MonoBehaviour
 
         if (isObstructed)
         {
-            float distanceRounded = hit.distance; //Mathf.Round(10 * hit.distance) / 10;
+            float distanceRounded = hit.distance;
             TextObstruction.text = hit.transform.tag.ToUpper();
             TextDistance.text = distanceRounded.ToString("F2", CultureInfo.InvariantCulture);
         }
