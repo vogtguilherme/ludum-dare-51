@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CommandManager : MonoBehaviour
+public class CommandManager : MonoBehaviour, ICommandSender
 {
     public event Action OnManagerInitialized;
     
@@ -18,6 +18,14 @@ public class CommandManager : MonoBehaviour
     private ConsoleLogger m_ConsoleLogger = null;
 
     private CommandQueue m_CurrentQueue;
+
+    public CommandQueue CurrentQueue
+    {
+        get
+        {
+            return m_CurrentQueue;
+        }
+    }
 
     private void Awake()
     {
@@ -45,6 +53,7 @@ public class CommandManager : MonoBehaviour
         if (_request.Result != null)
         {
             m_CurrentQueue.AddCommand(_request.Result, HandleCommandAdded);
+            CommandAdded(_request.Result);
         }
         else
         {
@@ -56,5 +65,36 @@ public class CommandManager : MonoBehaviour
     {
         string message = "queued command: " + command.key;
         m_ConsoleLogger.LogMessage(message, LogType.Info);
+    }
+
+    public event Action<Command> OnCommandAdded;
+
+    private void CommandAdded(Command command)
+    {
+        OnCommandAdded?.Invoke(command);
+
+        NotifyListener();
+    }
+
+    private ICommandListener m_Listener;
+
+    public void AttachListener(ICommandListener listener)
+    {
+        Debug.Log("Attached a linstener.");
+        m_Listener = listener;
+    }
+
+    public void RemoveListener(ICommandListener listener)
+    {
+        Debug.Log("Removed a listener.");
+        m_Listener = null;
+    }
+
+    public void NotifyListener()
+    {
+        if (m_Listener != null)
+        {
+            m_Listener.OnSenderUpdate(this);
+        }
     }
 }
