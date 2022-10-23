@@ -37,7 +37,7 @@ public class ObstructionMessage : MonoBehaviour
         if (isObstructed)
         {
             float distanceRounded = hit.distance;
-            TextObstruction.text = hit.transform.tag.ToUpper();
+            TextObstruction.text = hit.transform.tag.ToUpper() + " DETECTED";
             TextDistance.text = distanceRounded.ToString("F2", CultureInfo.InvariantCulture);
         }
     }
