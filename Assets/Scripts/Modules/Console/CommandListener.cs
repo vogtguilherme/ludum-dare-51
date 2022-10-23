@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CommandListener : MonoBehaviour, ICommandListener
+public class CommandListener : ICommandListener
 {
     private CommandQueue m_CommandQueue = null;
     private Command m_CurrentCommand = null;

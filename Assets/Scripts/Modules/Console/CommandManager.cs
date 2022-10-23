@@ -6,7 +6,16 @@ using UnityEngine;
 public class CommandManager : MonoBehaviour, ICommandSender
 {
     public event Action OnManagerInitialized;
-    
+
+    private static CommandManager instance;
+    public static CommandManager Instance
+    {
+        get
+        {
+            return instance;
+        }
+    }
+
     [Header("Command Settings")]
     [SerializeField]
     private CommandService m_CommandService = null;
@@ -29,14 +38,29 @@ public class CommandManager : MonoBehaviour, ICommandSender
 
     private void Awake()
     {
+        SingletonSetup();
+
         m_CommandService = GetComponent<CommandService>();
         m_ConsoleLogger = GetComponent<ConsoleLogger>();
         m_CurrentQueue = new CommandQueue(this);
     }
 
-    private void Start()
+    void Start()
     {
         Initialize();
+    }
+
+    void SingletonSetup(Action OnSingletonSet = null)
+    {
+        if (instance == null && instance != this)
+        {
+            instance = this;
+            OnSingletonSet?.Invoke();
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
     private void Initialize()
