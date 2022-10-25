@@ -4,30 +4,81 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class CommandQueue
+public class CommandQueue : MonoBehaviour
 {
-    [SerializeField]
-    private List<Command> m_Commands = new List<Command>();
+    Command currentCommand = null;
+    Queue<Command> queuedCommands = new Queue<Command>();
 
-    private CommandManager m_Manager = null;
-    private int m_QueueIndex = 0;
+    private Action<Command> OnEnqueue, OnDequeue;
 
-    public List<Command> Commands
+    private bool onExecution = false;
+
+    public bool OnExecution { get { return onExecution; } }
+
+    private void Start()
     {
-        get
+        OnEnqueue += EnqueueLog;
+        OnDequeue += DequeueLog;
+    }
+
+    private void OnDestroy()
+    {
+        OnEnqueue -= EnqueueLog;
+        OnDequeue -= DequeueLog;
+    }
+
+    public void Enqueue(Command cmd)
+    {
+        queuedCommands.Enqueue(cmd);
+
+        if (!onExecution)
         {
-            return m_Commands;
+            StartCoroutine(RunQueue());
+        }
+
+        OnEnqueue?.Invoke(cmd);
+    }
+
+    public void Dequeue(Command cmd)
+    {
+        if (queuedCommands.Count > 0)
+        {
+            queuedCommands.Dequeue();
+            OnDequeue?.Invoke(cmd);
         }
     }
 
-    public CommandQueue(CommandManager manager)
+    IEnumerator RunQueue()
     {
-        m_Manager = manager;
+        onExecution = true;
+        currentCommand = null;
+
+        while (queuedCommands.Count > 0)
+        {
+            currentCommand = queuedCommands.Peek();
+
+            yield return currentCommand.OnExecute;
+
+            Dequeue(currentCommand);
+            currentCommand = null;            
+        }
+
+        onExecution = false;
+
+        yield return null;
     }
 
-    public void AddCommand(Command command, Action<Command> OnCommandAdded = null)
+    void EnqueueLog(Command command)
     {
-        m_Commands.Add(command);
-        OnCommandAdded?.Invoke(command);
+        string message = "Enqueueing command: " + command.key;
+        Debug.Log(message);
+        CommandManager.Instance.LogMessage(message, LogType.Message);
+    }
+
+    void DequeueLog(Command command)
+    {
+        string message = "Dequeueing command: " + command.key;
+        Debug.Log(message);
+        CommandManager.Instance.LogMessage(message, LogType.Message);
     }
 }

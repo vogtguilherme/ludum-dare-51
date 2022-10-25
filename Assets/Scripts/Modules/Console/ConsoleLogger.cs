@@ -18,7 +18,7 @@ public class ConsoleLogger : MonoBehaviour
         if (!string.IsNullOrEmpty(message))
         {
             _LogMessage(message, logType);
-        }       
+        } 
     }
 
     private void _LogMessage(string message, LogType logType)
@@ -44,16 +44,16 @@ public class ConsoleLogger : MonoBehaviour
         switch (type)
         {
             case LogType.Message:
-                _colorTag = "<color=#004B00>";
+                _colorTag = "<color=#FFFFFF>";  //White
                 break;
             case LogType.Warning:
-                _colorTag = "<color=#004B00>";
+                _colorTag = "<color=#FFCE00>";  //Yellow
                 break;
             case LogType.Error:
-                _colorTag = "<color=#CF2217>";
+                _colorTag = "<color=#CF2217>";  //Red
                 break;
             case LogType.Info:
-                _colorTag = "<color=#004B00>";
+                _colorTag = "<color=#004B00>";  //Green
                 break;
             default:
                 break;

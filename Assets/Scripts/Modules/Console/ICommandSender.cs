@@ -8,5 +8,5 @@ public interface ICommandSender
 
     void RemoveListener(ICommandListener listener);
 
-    void NotifyListener();
+    void NotifyListener(Command command);
 }

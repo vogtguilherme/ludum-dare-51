@@ -42,7 +42,7 @@ public class CommandService : MonoBehaviour
         else
         {
             var _command = GetCommand(commandEntry);
-            _request.SetCommand(_command);
+            _request.SetCommand(_command, commandEntry);
         }
 
         return _request;
@@ -52,7 +52,7 @@ public class CommandService : MonoBehaviour
     {
         Command _command = null;
 
-        _command = m_CommandKeyValuePairs[entry[0]];
+        _command = m_CommandKeyValuePairs[entry[0]];        
 
         return _command;
     }
@@ -74,5 +74,11 @@ public class CommandRequest
     public void SetCommand(Command command)
     {
         Result = command;
+    }
+
+    public void SetCommand(Command command, string[] instructions)
+    {
+        Result = command;
+        Result.SetInstructions(instructions);
     }
 }

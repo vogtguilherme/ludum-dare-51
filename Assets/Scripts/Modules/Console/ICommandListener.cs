@@ -4,5 +4,5 @@ using UnityEngine;
 
 public interface ICommandListener
 {
-    void OnSenderUpdate(ICommandSender sender);
+    void UpdateListener(Command sender);
 }

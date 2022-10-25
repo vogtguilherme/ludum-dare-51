@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Data.Common;
 using UnityEngine;
+using static UnityEditor.ShaderGraph.Internal.KeywordDependentCollection;
 
 public class RoverModel : MonoBehaviour
 {
@@ -26,7 +28,7 @@ public class RoverModel : MonoBehaviour
     {
         m_RoverCamera = Camera.main;
 
-        if (m_RoverData == null)
+        if (m_RoverData != null)
         {
             lightSeconds = m_RoverData.LightSeconds;
             stopDistance = m_RoverData.StopDistance;
@@ -42,16 +44,40 @@ public class RoverModel : MonoBehaviour
     [ContextMenu("Start Move")]
     void StartMove()
     {
-        StartCoroutine(Move(Distance, movingSpeed));
+        StartCoroutine(Move(Distance));
     }
 
     [ContextMenu("Start Rotation")]
     void StartRotation()
     {
-        StartCoroutine(Rotate(Angle, rotatingSpeed));
+        StartCoroutine(Rotate(Angle));
     }
 
-    IEnumerator Move(float distance, float speed)
+    public Command GetCommandLogic(Command command)
+    {
+        float parameter = 0;        
+        if (command.instructions.Length > 1)
+        {
+            parameter = float.Parse(command.instructions[1]);
+        }
+
+        switch (command.key)
+        {
+            case "move":
+                command.OnExecute = Move(parameter);
+                break;
+            case "rotate":
+                command.OnExecute = Rotate(parameter);
+                break;
+            case "recon":
+                command.OnExecute = Recon();
+                break;
+        }
+
+        return command;
+    }
+
+    IEnumerator Move(float distance)
     {
         Debug.Log("Message Sent");
         yield return new WaitForSeconds(lightSeconds);
@@ -60,7 +86,7 @@ public class RoverModel : MonoBehaviour
         while (totalDistanceMoved < Mathf.Abs(distance))
         {
             //Moving in X and Z axis
-            float distanceToMoved = speed * Mathf.Sign(distance) * Time.deltaTime;
+            float distanceToMoved = movingSpeed * Mathf.Sign(distance) * Time.deltaTime;
             transform.Translate(transform.forward * distanceToMoved, Space.World);
             totalDistanceMoved += Mathf.Abs(distanceToMoved);
 
@@ -81,7 +107,7 @@ public class RoverModel : MonoBehaviour
         Debug.Log("Message Received");
     }
 
-    IEnumerator Rotate(float angle, float speed)
+    IEnumerator Rotate(float angle)
     {
         Debug.Log("Message Sent");
         yield return new WaitForSeconds(lightSeconds);
@@ -89,8 +115,7 @@ public class RoverModel : MonoBehaviour
         float totalAngleRotated = 0;
         while (totalAngleRotated < Mathf.Abs(angle))
         {
-            float angleToRotate = speed * Mathf.Sign(angle) * Time.deltaTime;
-            Debug.Log(angleToRotate);
+            float angleToRotate = rotatingSpeed * Mathf.Sign(angle) * Time.deltaTime;
             transform.Rotate(Vector3.up, angleToRotate, Space.World);
             totalAngleRotated += Mathf.Abs(angleToRotate);
 
@@ -99,5 +124,11 @@ public class RoverModel : MonoBehaviour
 
         yield return new WaitForSeconds(lightSeconds);
         Debug.Log("Message Received");
+    }
+
+    IEnumerator Recon()
+    {
+        yield return new WaitForSeconds(lightSeconds);
+        Debug.Log("Click!");
     }
 }

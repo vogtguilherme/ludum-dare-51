@@ -26,23 +26,12 @@ public class CommandManager : MonoBehaviour, ICommandSender
     [SerializeField]
     private ConsoleLogger m_ConsoleLogger = null;
 
-    private CommandQueue m_CurrentQueue;
-
-    public CommandQueue CurrentQueue
-    {
-        get
-        {
-            return m_CurrentQueue;
-        }
-    }
-
     private void Awake()
     {
         SingletonSetup();
 
         m_CommandService = GetComponent<CommandService>();
         m_ConsoleLogger = GetComponent<ConsoleLogger>();
-        m_CurrentQueue = new CommandQueue(this);
     }
 
     void Start()
@@ -76,8 +65,7 @@ public class CommandManager : MonoBehaviour, ICommandSender
         var _request = m_CommandService.RequestCommand(command);
         if (_request.Result != null)
         {
-            m_CurrentQueue.AddCommand(_request.Result, HandleCommandAdded);
-            CommandAdded(_request.Result);
+            OnCommandAdded(_request.Result);
         }
         else
         {
@@ -91,13 +79,14 @@ public class CommandManager : MonoBehaviour, ICommandSender
         m_ConsoleLogger.LogMessage(message, LogType.Info);
     }
 
-    public event Action<Command> OnCommandAdded;
-
-    private void CommandAdded(Command command)
+    private void OnCommandAdded(Command command)
     {
-        OnCommandAdded?.Invoke(command);
+        NotifyListener(command);
+    }
 
-        NotifyListener();
+    public void LogMessage(string message, LogType logType)
+    {
+        m_ConsoleLogger.LogMessage(message, logType);
     }
 
     private ICommandListener m_Listener;
@@ -114,11 +103,11 @@ public class CommandManager : MonoBehaviour, ICommandSender
         m_Listener = null;
     }
 
-    public void NotifyListener()
+    public void NotifyListener(Command command)
     {
         if (m_Listener != null)
         {
-            m_Listener.OnSenderUpdate(this);
+            m_Listener.UpdateListener(command);
         }
     }
 }

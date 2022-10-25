@@ -10,9 +10,4 @@ public class RotateCommand : Command
         this.valueType = valueType;
         this.manager = manager;
     }
-    
-    public override AsyncOperation OnExecute(GameObject target)
-    {
-        throw new System.NotImplementedException();
-    }
 }

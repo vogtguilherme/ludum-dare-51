@@ -1,15 +1,17 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class CommandListener : ICommandListener
 {
-    private CommandQueue m_CommandQueue = null;
+    public event Action<Command> OnUpdateListener;
+    
     private Command m_CurrentCommand = null;
     
-    public void OnSenderUpdate(ICommandSender sender)
+    public void UpdateListener(Command command)
     {
-        var queue = sender as CommandQueue;
-        m_CommandQueue = queue;
+        m_CurrentCommand = command;
+        OnUpdateListener?.Invoke(m_CurrentCommand);
     }
 }

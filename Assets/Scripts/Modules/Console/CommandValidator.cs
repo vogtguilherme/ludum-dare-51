@@ -27,7 +27,6 @@ public class CommandValidator
     {
         bool _validation = false;
         string _log = string.Empty;
-        Debug.Log(commandKey);
 
         for (int i = 0; i < m_DefaultCommands.Count; i++)
         {

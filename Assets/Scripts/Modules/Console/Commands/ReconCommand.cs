@@ -10,9 +10,4 @@ public class ReconCommand : Command
         this.key = key;
         this.valueType = valueType;
     }
-    
-    public override AsyncOperation OnExecute(GameObject target)
-    {
-        throw new System.NotImplementedException();
-    }
 }

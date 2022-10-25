@@ -16,7 +16,7 @@ MonoBehaviour:
   StopDistance: 0.8
   MovingSpeed: 1
   RotatingSpeed: 15
-  startingPosition: {x: 0, y: 0, z: 0}
+  startingPosition: {x: 135, y: 0, z: 1}
   ObstructionLayerMask:
     serializedVersion: 2
     m_Bits: 64
