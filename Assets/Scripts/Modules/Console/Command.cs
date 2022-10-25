@@ -13,9 +13,13 @@ public abstract class Command
     public void SetInstructions(string[] instructions)
     {
         this.instructions = instructions;
+        foreach (string instruction in instructions)
+        {
+            Debug.Log(instruction);
+        }
     }
 
-    public abstract AsyncOperation OnExecute(GameObject target);
+    public IEnumerator OnExecute;
 }
 
 public enum ValueType

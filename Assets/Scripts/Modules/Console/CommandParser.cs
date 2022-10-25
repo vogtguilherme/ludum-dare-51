@@ -18,6 +18,12 @@ public class CommandParser : MonoBehaviour
         {
             m_InputReader.OnEndEdit += ParseCommandInput;
         }
+        OnCommandParsed += DisplayInstructions;
+    }
+
+    private void OnDestroy()
+    {
+        OnCommandParsed -= DisplayInstructions;
     }
 
     private void ParseCommandInput(string command)
@@ -28,5 +34,13 @@ public class CommandParser : MonoBehaviour
         {
             OnCommandParsed?.Invoke(m_Command);
         }        
+    }
+
+    private void DisplayInstructions(string[] command)
+    {
+        foreach (string arg in command)
+        {
+            Debug.Log(arg);
+        }
     }
 }
