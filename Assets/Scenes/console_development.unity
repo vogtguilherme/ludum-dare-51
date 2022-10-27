@@ -837,6 +837,7 @@ MonoBehaviour:
   m_DefaultCommands:
   - {fileID: 11400000, guid: 847b34bcc5bd25b4aba4ac79c28d374b, type: 2}
   - {fileID: 11400000, guid: f9f35e4a327733243958ee54871d9e7a, type: 2}
+  - {fileID: 11400000, guid: d42e105df272b1f458ea735773617a19, type: 2}
 --- !u!1 &1881743459
 GameObject:
   m_ObjectHideFlags: 0
