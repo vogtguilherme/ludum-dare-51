@@ -6,17 +6,13 @@ public class MapManager : MonoBehaviour
 {
     [SerializeField] Transform Player;
     [SerializeField] MapElement[] Elements;
-    [SerializeField] float Scale = 1;
-    [SerializeField] float MapRadius = 1;
+    private float Scale = 10.2f;
+    private float MapRadius = 14;
     public Transform ElementsContainer;
 
     void Start()
     {
         Elements = FindObjectsOfType<MapElement>();
-    }
-
-    void Update()
-    {
         UpdateMap();
     }
 
