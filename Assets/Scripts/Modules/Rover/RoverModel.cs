@@ -6,7 +6,11 @@ using static UnityEditor.ShaderGraph.Internal.KeywordDependentCollection;
 
 public class RoverModel : MonoBehaviour
 {
-    Camera m_RoverCamera;
+    Camera m_MainCamera;
+    [SerializeField]
+    RoverCamera m_RoverCamera = null;
+    [SerializeField]
+    MapManager m_MapManager = null;
 
     [Header("Model Data")]
     [SerializeField]
@@ -22,11 +26,17 @@ public class RoverModel : MonoBehaviour
     [Space(1)]
     [Header("Testing Only")]
     [SerializeField] float Distance;
-    [SerializeField] float Angle;    
+    [SerializeField] float Angle;
+
+    private void Awake()
+    {
+        m_RoverCamera = GetComponent<RoverCamera>();
+        m_MapManager = FindObjectOfType<MapManager>();
+    }
 
     public void Setup()
     {
-        m_RoverCamera = Camera.main;
+        m_MainCamera = Camera.main;
 
         if (m_RoverData != null)
         {
@@ -96,8 +106,8 @@ public class RoverModel : MonoBehaviour
                 transform.position = new Vector3(transform.position.x, downHit.point.y, transform.position.z);
 
             //Checking for obstructions
-            if (distance > 0 && Physics.Raycast(m_RoverCamera.transform.position, m_RoverCamera.transform.forward, stopDistance, obstructionLayerMask) || //If the rover is moving forward.
-                distance < 0 && Physics.Raycast(m_RoverCamera.transform.position, -m_RoverCamera.transform.forward, stopDistance, obstructionLayerMask)) //If the rover is moving backwards.
+            if (distance > 0 && Physics.Raycast(m_MainCamera.transform.position, m_MainCamera.transform.forward, stopDistance, obstructionLayerMask) || //If the rover is moving forward.
+                distance < 0 && Physics.Raycast(m_MainCamera.transform.position, -m_MainCamera.transform.forward, stopDistance, obstructionLayerMask)) //If the rover is moving backwards.
                 break;
 
             yield return null;
@@ -129,6 +139,10 @@ public class RoverModel : MonoBehaviour
     IEnumerator Recon()
     {
         yield return new WaitForSeconds(lightSeconds);
+
+        m_RoverCamera.CaptureImage();
+        m_MapManager.UpdateMap();
+
         Debug.Log("Click!");
     }
 }

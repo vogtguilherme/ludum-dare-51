@@ -6,7 +6,7 @@ using System.Globalization;
 
 public class ObstructionMessage : MonoBehaviour
 {
-    Camera CameraRover;
+    [SerializeField] Camera m_RoverCamera;
     [SerializeField] GameObject UIMessage;
     [SerializeField] TMP_Text TextObstruction;
     [SerializeField] TMP_Text TextDistance;
@@ -15,7 +15,7 @@ public class ObstructionMessage : MonoBehaviour
 
     void Start()
     {
-        CameraRover = Camera.main;    
+        //m_RoverCamera = Camera.main;
     }
 
     void Update()
@@ -28,7 +28,7 @@ public class ObstructionMessage : MonoBehaviour
         bool isObstructed;
         
         RaycastHit hit;
-        Ray ray = new Ray(CameraRover.transform.position, CameraRover.transform.forward);
+        Ray ray = new Ray(m_RoverCamera.transform.position, m_RoverCamera.transform.forward);
 
         isObstructed = Physics.Raycast(ray, out hit, CheckDistance, LayersToCheck);
 

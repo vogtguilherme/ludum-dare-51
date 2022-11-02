@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class DistanceProjection : MonoBehaviour
 {
-    Camera CameraRover;
+    [SerializeField] Camera CameraRover;
     [SerializeField] Transform Player;
     [SerializeField] RectTransform Photo;
     [SerializeField] DistanceMarker[] Markers;
 
     void Start()
     {
-        CameraRover = Camera.main;    
+        //CameraRover = Camera.main;    
     }
     
     void Update()

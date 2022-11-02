@@ -588,7 +588,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8969167804363175588}
-  - component: {fileID: 4863800681762967565}
+  - component: {fileID: 8174321728925701478}
+  - component: {fileID: 8969167804413344642}
+  - component: {fileID: 8969167804413344643}
   m_Layer: 0
   m_Name: Rover
   m_TagString: Untagged
@@ -612,7 +614,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4863800681762967565
+--- !u!114 &8174321728925701478
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -621,21 +623,39 @@ MonoBehaviour:
   m_GameObject: {fileID: 8969167804363175587}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 086ac604c395c9549b5c083d48bde6b5, type: 3}
+  m_Script: {fileID: 11500000, guid: 39fef4f376b45f442b125b421b683219, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LightSeconds: 1
-  StopDistance: 0.8
-  MovingSpeed: 1
-  RotatingSpeed: 15
-  Distance: 40
-  Angle: 45
-  HeightLayerMask:
-    serializedVersion: 2
-    m_Bits: 128
-  ObstructionLayerMask:
-    serializedVersion: 2
-    m_Bits: 64
+--- !u!114 &8969167804413344642
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8969167804363175587}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8aff81cedd1074047bb1522c437cf38f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_RoverCamera: {fileID: 0}
+  m_MapManager: {fileID: 0}
+  m_RoverData: {fileID: 11400000, guid: 79d675ea30a07a2428191be9a302cc44, type: 2}
+  Distance: 0
+  Angle: 0
+--- !u!114 &8969167804413344643
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8969167804363175587}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1576d50077fa6b468373682c168adae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  RealTime: 0
 --- !u!1 &8969167804642697975
 GameObject:
   m_ObjectHideFlags: 0
