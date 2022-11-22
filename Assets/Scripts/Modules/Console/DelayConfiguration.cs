@@ -17,6 +17,8 @@ public class DelayConfiguration
 
     public IEnumerator InitCount(float delay)
     {
+        m_InputDelay = delay;
+        
         yield return PerformCount();
     }
 
@@ -31,5 +33,10 @@ public class DelayConfiguration
         }
 
         OnCountOver?.Invoke();
+    }
+
+    private void OnDestroy()
+    {
+        OnCountOver = null;
     }
 }
