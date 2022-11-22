@@ -6,12 +6,16 @@ using UnityEngine.UI;
 
 public class CommandQueue : MonoBehaviour
 {
-    Command currentCommand = null;
-    Queue<Command> queuedCommands = new Queue<Command>();
+    private Command currentCommand = null;
+    private Queue<Command> queuedCommands = new Queue<Command>();
 
     private Action<Command> OnEnqueue, OnDequeue;
 
     private bool onExecution = false;
+
+    [Header("Command Settings")]
+    [Range(0f, 10f)]
+    public float messageTravelTime = 2f;
 
     public bool OnExecution { get { return onExecution; } }
 
@@ -53,9 +57,14 @@ public class CommandQueue : MonoBehaviour
         onExecution = true;
         currentCommand = null;
 
+        DelayConfiguration _delay= new DelayConfiguration();
+        //_delay.OnCountOver += OnCountOver;
+
         while (queuedCommands.Count > 0)
         {
             currentCommand = queuedCommands.Peek();
+
+            yield return _delay.InitCount(messageTravelTime);
 
             yield return currentCommand.OnExecute;
 
@@ -80,5 +89,10 @@ public class CommandQueue : MonoBehaviour
         string message = "Dequeueing command: " + command.key;
         Debug.Log(message);
         CommandManager.Instance.LogMessage(message, LogType.Message);
+    }
+
+    void OnCountOver()
+    {
+
     }
 }
