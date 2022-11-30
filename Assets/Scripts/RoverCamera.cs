@@ -5,8 +5,10 @@ using UnityEngine;
 
 public class RoverCamera : MonoBehaviour
 {
-    [SerializeField] bool RealTime;
-    Camera m_RoverCamera;
+    [SerializeField] 
+    private bool realTimeRender = false;
+    [SerializeField]
+    private Camera m_RoverCamera = null;
 
     int height = 1024;
     int width = 1024;
@@ -17,24 +19,35 @@ public class RoverCamera : MonoBehaviour
     void Awake()
     {
         m_RoverCamera = Camera.main;
-        m_RoverCamera.enabled = false;
+
+        if (m_RoverCamera != null)
+        {
+            m_RoverCamera.enabled = false;
+        }
     }
 
-    void Start()
+    public void Initialize()
     {
-        
+        TakeShot();
     }
 
     [ContextMenu("Take Shot")]
     public void TakeShot()
     {
-        
+        if (m_RoverCamera != null)
+        {
+            m_RoverCamera.Render();
+        }
+        else
+        {
+            Debug.LogWarning("Camera is not set up");
+        }
     }
 
     [ContextMenu("Set Real Time")]
     public void SetRealTime()
     {
-        m_RoverCamera.enabled = RealTime;
+        m_RoverCamera.enabled = realTimeRender;
     }
 
     public void CaptureImage()
@@ -58,7 +71,5 @@ public class RoverCamera : MonoBehaviour
         Sprite sprite = Sprite.Create(texture, rect, Vector2.zero);
 
         OnCameraShotTaken?.Invoke(sprite);
-
-        //return sprite;
     }
 }

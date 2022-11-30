@@ -13,11 +13,6 @@ public class ObstructionMessage : MonoBehaviour
     [SerializeField] float CheckDistance;
     [SerializeField] LayerMask LayersToCheck;
 
-    void Start()
-    {
-        //m_RoverCamera = Camera.main;
-    }
-
     void Update()
     {
         CheckObstruction();

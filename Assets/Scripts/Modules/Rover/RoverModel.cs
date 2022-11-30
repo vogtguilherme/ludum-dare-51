@@ -6,7 +6,8 @@ using static UnityEditor.ShaderGraph.Internal.KeywordDependentCollection;
 
 public class RoverModel : MonoBehaviour
 {
-    Camera m_MainCamera;
+    [SerializeField]
+    Camera m_MainCamera = null;
     [SerializeField]
     RoverCamera m_RoverCamera = null;
     [SerializeField]
@@ -36,8 +37,6 @@ public class RoverModel : MonoBehaviour
 
     public void Setup()
     {
-        m_MainCamera = Camera.main;
-
         if (m_RoverData != null)
         {
             lightSeconds = m_RoverData.LightSeconds;
@@ -48,6 +47,16 @@ public class RoverModel : MonoBehaviour
             obstructionLayerMask = m_RoverData.ObstructionLayerMask;
 
             transform.position = m_RoverData.startingPosition;
+        }
+
+        if (m_RoverCamera != null)
+        {
+            m_RoverCamera.Initialize();
+        }
+
+        if (m_MapManager != null)
+        {
+            m_MapManager.Initialize();
         }
     }
 
@@ -140,7 +149,8 @@ public class RoverModel : MonoBehaviour
     {
         yield return new WaitForSeconds(lightSeconds);
 
-        m_RoverCamera.CaptureImage();
+        //m_RoverCamera.CaptureImage();
+        m_RoverCamera.TakeShot();
         m_MapManager.UpdateMap();
 
         Debug.Log("Click!");

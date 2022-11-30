@@ -13,6 +13,10 @@ public class MapManager : MonoBehaviour
     void Start()
     {
         Elements = FindObjectsOfType<MapElement>();
+    }
+
+    public void Initialize()
+    {
         UpdateMap();
     }
 

@@ -45,7 +45,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1576d50077fa6b468373682c168adae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RealTime: 1
+  realTimeRender: 0
+  m_RoverCamera: {fileID: 0}
 --- !u!114 &2772495713291916927
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -58,6 +59,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a94e94752d167014eb23099b36e6aefd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CameraRover: {fileID: 0}
   Player: {fileID: 0}
   Photo: {fileID: 0}
   Markers:
@@ -79,6 +81,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c02108647f976614f9d7959cb84282fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_RoverCamera: {fileID: 0}
   UIMessage: {fileID: 0}
   TextObstruction: {fileID: 0}
   TextDistance: {fileID: 0}
