@@ -12058,6 +12058,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: ET1
       objectReference: {fileID: 0}
+    - target: {fileID: 7168189920457005371, guid: ce46625c558bca34cb8f04279b94715d, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+    - target: {fileID: 8819098407815482281, guid: ce46625c558bca34cb8f04279b94715d, type: 3}
+      propertyPath: DistanceToGround
+      value: 0.1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ce46625c558bca34cb8f04279b94715d, type: 3}
 --- !u!1 &1605335524
@@ -12640,7 +12648,7 @@ GameObject:
   - component: {fileID: 1727950944}
   m_Layer: 7
   m_Name: Terrain
-  m_TagString: Untagged
+  m_TagString: Walkable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
