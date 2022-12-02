@@ -12054,6 +12054,10 @@ PrefabInstance:
       propertyPath: Target
       value: 
       objectReference: {fileID: 1266467985}
+    - target: {fileID: 3699251025346467478, guid: ce46625c558bca34cb8f04279b94715d, type: 3}
+      propertyPath: MoveSpeed
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6961920561263279695, guid: ce46625c558bca34cb8f04279b94715d, type: 3}
       propertyPath: m_Name
       value: ET1
