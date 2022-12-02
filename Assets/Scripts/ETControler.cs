@@ -5,18 +5,14 @@ using UnityEngine;
 public class ETControler : MonoBehaviour
 {
     [SerializeField] Transform Target;
+    [SerializeField] bool CanMove = true;
     [SerializeField] float MoveSpeed;
     [SerializeField] float RotationSpeed;
     [SerializeField] LayerMask CanStepOn;
 
-    void Start()
-    {
-        
-    }
-
     void Update()
     {
-        Move();
+        if(CanMove) Move();
         Rotate();
     }
 
