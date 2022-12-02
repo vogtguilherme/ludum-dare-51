@@ -76,7 +76,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Target: {fileID: 0}
-  MoveSpeed: 1.5
+  MoveSpeed: 1.3
   RotationSpeed: 220
   CanStepOn:
     serializedVersion: 2
@@ -98,7 +98,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 32ea8d12934ca0a4598620ab265e8b68, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.06
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 32ea8d12934ca0a4598620ab265e8b68, type: 3}
       propertyPath: m_LocalPosition.z
