@@ -99,7 +99,6 @@ public class RoverModel : MonoBehaviour
     IEnumerator Move(float distance)
     {
         Debug.Log("Message Sent");
-        yield return new WaitForSeconds(lightSeconds);
 
         float totalDistanceMoved = 0;
         while (totalDistanceMoved < Mathf.Abs(distance))
@@ -122,14 +121,12 @@ public class RoverModel : MonoBehaviour
             yield return null;
         }
 
-        yield return new WaitForSeconds(lightSeconds);
         Debug.Log("Message Received");
     }
 
     IEnumerator Rotate(float angle)
     {
         Debug.Log("Message Sent");
-        yield return new WaitForSeconds(lightSeconds);
 
         float totalAngleRotated = 0;
         while (totalAngleRotated < Mathf.Abs(angle))
@@ -141,18 +138,16 @@ public class RoverModel : MonoBehaviour
             yield return null;
         }
 
-        yield return new WaitForSeconds(lightSeconds);
         Debug.Log("Message Received");
     }
 
     IEnumerator Recon()
     {
-        yield return new WaitForSeconds(lightSeconds);
-
         //m_RoverCamera.CaptureImage();
         m_RoverCamera.TakeShot();
         m_MapManager.UpdateMap();
 
         Debug.Log("Click!");
+        yield return null;
     }
 }

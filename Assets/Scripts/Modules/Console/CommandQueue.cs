@@ -68,6 +68,8 @@ public class CommandQueue : MonoBehaviour
 
             yield return currentCommand.OnExecute;
 
+            yield return _delay.InitCount(messageTravelTime);
+
             Dequeue(currentCommand);
             currentCommand = null;            
         }

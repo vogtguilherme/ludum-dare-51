@@ -17741,12 +17741,7 @@ PrefabInstance:
       propertyPath: m_RoverCamera
       value: 
       objectReference: {fileID: 2772495713098457894}
-    - target: {fileID: 8969167804642697976, guid: 64ac2bd6634357647ba3bbcc639799bd, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.50001335
-      objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 4863800681762967565, guid: 64ac2bd6634357647ba3bbcc639799bd, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 64ac2bd6634357647ba3bbcc639799bd, type: 3}
 --- !u!1 &9109364253649881610
 GameObject:

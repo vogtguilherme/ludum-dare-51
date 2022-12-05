@@ -588,7 +588,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8969167804363175588}
-  - component: {fileID: 8174321728925701478}
   - component: {fileID: 8969167804413344642}
   - component: {fileID: 8969167804413344643}
   m_Layer: 0
@@ -614,18 +613,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8174321728925701478
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8969167804363175587}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 39fef4f376b45f442b125b421b683219, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &8969167804413344642
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -638,6 +625,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8aff81cedd1074047bb1522c437cf38f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_MainCamera: {fileID: 0}
   m_RoverCamera: {fileID: 0}
   m_MapManager: {fileID: 0}
   m_RoverData: {fileID: 11400000, guid: 79d675ea30a07a2428191be9a302cc44, type: 2}
@@ -655,7 +643,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1576d50077fa6b468373682c168adae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RealTime: 0
+  realTimeRender: 0
+  m_RoverCamera: {fileID: 0}
 --- !u!1 &8969167804642697975
 GameObject:
   m_ObjectHideFlags: 0
@@ -681,7 +670,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8969167804642697975}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.5000138, z: 0}
+  m_LocalPosition: {x: 0, y: 0.50001335, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 8969167804145817155}
